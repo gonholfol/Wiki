@@ -1,0 +1,179 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import ProfileCard from '../components/ProfileCard.astro';
+
+const topDonors = [
+  {
+    name: "зайка",
+    steamId: "STEAM_0:1:123456789",
+    steamUrl: "https://steamcommunity.com/profiles/76561199681614503",
+    avatar: "🐰",
+    rank: "Мой Фанат",
+    hours: 200,
+    status: "Онлайн",
+    achievements: ["👑 Топ сосатель месяца", "🏆 2 рейда", "💎 200 часов"],
+    stats: {
+      kills: 5,
+      raids: 2,
+      resources: "2 говна"
+    }
+  },
+  {
+    name: "bolk",
+    steamId: "STEAM_0:1:987654321",
+    steamUrl: "https://steamcommunity.com/profiles/76561199496916082",
+    avatar: "🐺",
+    rank: "Герой",
+    hours: 3890,
+    status: "Был сегодня",
+    achievements: ["🌟 Ветеран проекта", "🎯 1000+ убийств", "🏰 Лучший строитель"],
+    stats: {
+      kills: 2890,
+      raids: 198,
+      resources: "1.8M"
+    }
+  },
+  {
+    name: "5ivemag",
+    steamId: "STEAM_0:1:456789123",
+    steamUrl: "https://steamcommunity.com/profiles/76561198861277170",
+    avatar: "🍺",
+    rank: "Позорище",
+    hours: 3250,
+    status: "Онлайн",
+    achievements: ["⚔️ PvP лох", "🎯 Лучший Абобус", "🏆 3 рейда"],
+    stats: {
+      kills: 5,
+      raids: 3,
+      resources: "1.5 говна"
+    }
+  },
+  {
+    name: "hazbik",
+    steamId: "STEAM_0:1:234567891",
+    steamUrl: "https://steamcommunity.com/profiles/76561199033101827",
+    avatar: "⚡",
+    rank: "Яйцо об голову",
+    hours: 3000,
+    status: "Онлайн",
+    achievements: ["🎯 Худший PvP игрок", "🏆 0 рейдов", "💎 3000 часов"],
+    stats: {
+      kills: 5,
+      raids: 0,
+      resources: "0"
+    }
+  },
+  {
+    name: "бобик",
+    steamId: "STEAM_0:1:345678912",
+    steamUrl: "https://steamcommunity.com/profiles/76561199083241469",
+    avatar: "🐶",
+    rank: "UltimatePro",
+    hours: 2200,
+    status: "Был сегодня",
+    achievements: ["🌟 Мастер рейдов", "⚔️ 5000+ убийств", "🤖 Топ терменатор"],
+    stats: {
+      kills: 5000,
+      raids: 1000,
+      resources: "10M"
+    }
+  },
+  {
+    name: "шарик",
+    steamId: "STEAM_0:1:567891234",
+    steamUrl: "https://steamcommunity.com/profiles/76561199235211537",
+    avatar: "🐶",
+    rank: "VIP",
+    hours: 90,
+    status: "Онлайн",
+    achievements: ["🥚 сосал яйца", "⚔️ 5000+ убийств", "🏰 Лучший строитель"],
+    stats: {
+      kills: 5000,
+      raids: 1000,
+      resources: "10M"
+    }
+  },
+  {
+    name: "снайпер",
+    steamId: "STEAM_0:1:678912345",
+    steamUrl: "https://steamcommunity.com/profiles/76561198000000000",
+    avatar: "🎯",
+    rank: "PREMIUM",
+    hours: 85,
+    status: "Онлайн",
+    achievements: ["🎯 Меткий стрелок", "⚔️ 150+ убийств", "🏰 Строитель недели"],
+    stats: {
+      kills: 280,
+      raids: 18,
+      resources: "350K"
+    }
+  },
+  {
+    name: "monax",
+    steamId: "STEAM_0:1:789123456",
+    steamUrl: "https://steamcommunity.com/profiles/76561198000000000",
+    avatar: "🙏",
+    rank: "VIP",
+    hours: 75,
+    status: "Был сегодня",
+    achievements: ["⚔️ PvP недели", "🎯 100+ убийств", "💎 Активный игрок"],
+    stats: {
+      kills: 250,
+      raids: 15,
+      resources: "300K"
+    }
+  },
+  {
+    name: "Фав",
+    steamId: "STEAM_0:1:112233445",
+    steamUrl: "https://steamcommunity.com/profiles/76561199002371359",
+    avatar: "🔥",
+    rank: "UltimatePro",
+    hours: 5000,
+    status: "Онлайн",
+    achievements: ["🔥 Пылающий чемпион", "🎯 800+ убийств", "🏰 Строитель империи"],
+    stats: {
+      kills: 3500,
+      raids: 250,
+      resources: "3M"
+    }
+  },
+  {
+    name: "overlive",
+    steamId: "STEAM_0:1:223344556",
+    steamUrl: "https://steamcommunity.com/profiles/76561198000000002",
+    avatar: "⚔️",
+    rank: "Ultimate",
+    hours: 2000,
+    status: "Онлайн",
+    achievements: ["⚔️ Вечный бой", "🚀 1000+ убийств", "🏆 Легенда войны"],
+    stats: {
+      kills: 6000,
+      raids: 300,
+      resources: "5M"
+    }
+  }
+];
+
+---
+
+<Layout title="Профили - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <PageHeader 
+        title="Профили игроков" 
+        subtitle="Топовые игроки и донатеры нашего проекта" 
+      />
+      
+      <Section title="Топ донатеры">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {topDonors.map(profile => (
+            <ProfileCard profile={profile} type="donor" />
+          ))}
+        </div>
+      </Section>
+    </div>
+  </main>
+</Layout>

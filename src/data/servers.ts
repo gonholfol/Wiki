@@ -1,0 +1,47 @@
+export const servers = [
+  {
+    id: "paradise",
+    name: "Paradise",
+    icon: "🌍",
+    description: "Модовый сервер с модификациями и улучшениями",
+    wipe: "Каждую субботу",
+    maxGroup: 2,
+    status: "online",
+  },
+  {
+    id: "pirate-bay",
+    name: "Pirate Bay",
+    icon: "🏴‍☠️",
+    description: "Как Paradise, но с пиратами",
+    wipe: "Каждую пятницу",
+    maxGroup: 3,
+    status: "online",
+  },
+  {
+    id: "one-grid-small",
+    name: "One Grid Small",
+    icon: "🚀",
+    description: "Сервер с маленькой картой",
+    wipe: "Каждый вторник и пятницу",
+    maxGroup: 2,
+    status: "online",
+  },
+  {
+    id: "one-grid-big",
+    name: "One Grid Big",
+    icon: "🏰",
+    description: "Сервер с маленькой картой",
+    wipe: "Каждый вторник и пятницу",
+    maxGroup: 8,
+    status: "online",
+  },
+  {
+    id: "zombie-land",
+    name: "Zombie Land",
+    icon: "🧟‍♂️",
+    description: "Сервер с кастомными зомби ",
+    wipe: "Каждую пятницу",
+    maxGroup: 4,
+    status: "online",
+  }
+];

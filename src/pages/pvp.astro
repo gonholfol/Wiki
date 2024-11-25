@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WeaponCard from '../components/WeaponCard.astro';
+import TacticCard from '../components/TacticCard.astro';
+import KeybindCard from '../components/KeybindCard.astro';
+
+const weapons = [
+  {
+    name: "AK-47",
+    icon: "🔫",
+    damage: 50,
+    range: "Высокая",
+    recoil: "Сильная",
+    ammo: "5.56",
+    firerate: 450,
+    details: "Мощная штурмовая винтовка с высоким уроном. Требует навыка контроля отдачи."
+  },
+  {
+    name: "MP5",
+    icon: "🔫",
+    damage: 35,
+    range: "Средняя",
+    recoil: "Средняя",
+    ammo: "Pistol",
+    firerate: 600,
+    details: "Отличное оружие для близкого боя с высокой скорострельностью."
+  },
+  {
+    name: "LR-300",
+    icon: "🔫",
+    damage: 45,
+    range: "Высокая",
+    recoil: "Низкая",
+    ammo: "5.56",
+    firerate: 500,
+    details: "Более легкая в использовании альтернатива AK-47."
+  },
+  {
+    name: "Болтовка",
+    icon: "🎯",
+    damage: 80,
+    range: "Очень высокая",
+    recoil: "Низкая",
+    ammo: "5.56",
+    firerate: 60,
+    details: "Идеальное оружие для снайперов. Смертельна на дальних дистанциях."
+  }
+];
+
+const tactics = [
+  {
+    title: "Фланкирование",
+    description: "Обход противника с фланга для неожиданной атаки",
+    difficulty: "Средняя"
+  },
+  {
+    title: "Удержание позиции",
+    description: "Контроль стратегической точки и защита",
+    difficulty: "Легкая"
+  },
+  {
+    title: "Рейд-тактика",
+    description: "Эффективное использование взрывчатки и координация команды",
+    difficulty: "Сложная"
+  }
+];
+
+const keybinds = [
+  { key: "1-6", action: "Слоты оружия" },
+  { key: "R", action: "Перезарядка" },
+  { key: "B", action: "Инвентарь" },
+  { key: "TAB", action: "Крафт" },
+  { key: "X", action: "Голос" },
+  { key: "G", action: "Жесты" },
+  { key: "H", action: "Аптечка" },
+  { key: "L", action: "Фонарик" }
+];
+---
+
+<Layout title="PvP Гайд - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <h1 class="text-3xl font-bold mb-6">PvP Гайд</h1>
+      
+      <div class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6">Оружие</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {weapons.map(weapon => (
+            <WeaponCard {...weapon} />
+          ))}
+        </div>
+      </div>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6">Тактики боя</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {tactics.map(tactic => (
+            <TacticCard {...tactic} />
+          ))}
+        </div>
+      </div>
+
+      <div class="prose prose-invert max-w-none">
+        <h2 class="text-2xl font-semibold mb-4">Советы по PvP</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-semibold mb-3">Основы боя</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Всегда носите броню высшего уровня</li>
+              <li>Используйте укрытия и peek-преимущество</li>
+              <li>Тренируйтесь на серверах с PvP</li>
+              <li>Изучите паттерны отдачи каждого оружия</li>
+              <li>Держите аптечки на горячих клавишах</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-3">Продвинутые техники</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Используйте звуки шагов для определения врагов</li>
+              <li>Практикуйте spray-control на тренировочных серверах</li>
+              <li>Координируйте действия с командой</li>
+              <li>Изучите карту и популярные точки для засад</li>
+              <li>Используйте гранаты для выкуривания врагов</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold mb-3">Горячие клавиши</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {keybinds.map(bind => (
+              <KeybindCard {...bind} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

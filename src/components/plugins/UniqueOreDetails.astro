@@ -1,0 +1,108 @@
+---
+interface Props {
+  plugin: {
+    details: {
+      resources: Array<{
+        name: string;
+        amount: string;
+      }>;
+      components: Array<{
+        name: string;
+        amount: string;
+        locations: string[];
+      }>;
+      effects: Array<{
+        name: string;
+        description: string;
+      }>;
+      dropChances: {
+        ore: string;
+        fuel: string;
+      };
+      smeltingTime: string;
+      update: string;
+    };
+  };
+}
+
+const { plugin } = Astro.props;
+---
+
+<div class="mt-6 space-y-6">
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Введение</h4>
+    <p class="text-gray-300 mb-4">
+      Уникальная руда "Ультаниум" - это особый ресурс, который можно найти при добыче металлической и серной руды. При переплавке в специальной печи она приносит множество ценных ресурсов.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Ресурсы при переплавке</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.resources.map(resource => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg flex justify-between items-center">
+          <span class="text-gray-300">{resource.name}</span>
+          <span class="text-rust-pink">{resource.amount}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Компоненты печи</h4>
+    <div class="space-y-4">
+      {plugin.details.components.map(component => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-gray-300">{component.name}</span>
+            <span class="text-rust-pink">{component.amount}</span>
+          </div>
+          <div class="text-sm text-gray-400">
+            Где найти:
+            <ul class="list-disc list-inside mt-1">
+              {component.locations.map(location => (
+                <li>{location}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Негативные эффекты</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.effects.map(effect => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <h5 class="font-medium mb-2">{effect.name}</h5>
+          <p class="text-gray-300">{effect.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Важная информация</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-rust-dark/20 p-4 rounded-lg">
+        <h5 class="font-medium mb-2">Шансы выпадения</h5>
+        <ul class="space-y-2 text-gray-300">
+          <li>Ультаниум: {plugin.details.dropChances.ore}</li>
+          <li>Топливо: {plugin.details.dropChances.fuel}</li>
+        </ul>
+      </div>
+      <div class="bg-rust-dark/20 p-4 rounded-lg">
+        <h5 class="font-medium mb-2">Время переплавки</h5>
+        <p class="text-gray-300">{plugin.details.smeltingTime}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Последнее обновление</h4>
+    <p class="text-gray-300">
+      Версия от {plugin.details.update}. Мы продолжаем улучшать и дополнять механики добычи редких ресурсов!
+    </p>
+  </div>
+</div>

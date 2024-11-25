@@ -1,0 +1,32 @@
+---
+interface Workbench {
+  id: string;
+  name: string;
+  icon: string;
+  level: number;
+  description: string;
+}
+
+interface Props {
+  workbenches: Workbench[];
+}
+
+const { workbenches } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+  {workbenches.map(bench => (
+    <button
+      class="bg-rust-dark/50 p-4 rounded-lg hover:bg-rust-dark/70 transition-colors text-left group"
+      data-workbench={bench.id}
+    >
+      <div class="flex items-center space-x-3">
+        <span class="text-3xl group-hover:animate-bounce">{bench.icon}</span>
+        <div>
+          <h3 class="font-semibold">{bench.name}</h3>
+          <p class="text-sm text-gray-400">{bench.description}</p>
+        </div>
+      </div>
+    </button>
+  ))}
+</div>

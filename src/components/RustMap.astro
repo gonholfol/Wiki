@@ -1,0 +1,94 @@
+---
+interface Props {
+  server: string;
+}
+
+const { server } = Astro.props;
+
+const getMapImage = (server: string) => {
+  switch (server) {
+    case 'paradise':
+      return '/public/paradise-map.jpg';
+    case 'pirate-bay':
+      return '/public/pirate-bay-map.jpg';
+    case 'one-grid-small':
+      return '/public/one-grid-small-map.jpg';
+    case 'zombie-land':
+      return '/public/zombie-land-map.jpg';
+    case 'one-grid-big':
+      return '/public/one-grid-big-map.jpg';
+    default:
+      return '/public/default-map.jpg';
+  }
+};
+---
+
+<div class="relative w-full h-full">
+  <div id="rustMap" class="w-full h-[600px] rounded-lg overflow-hidden"></div>
+  
+  <!-- Map Controls -->
+  <div class="absolute top-4 right-4 flex flex-col space-y-2">
+    <button id="zoomIn" class="bg-rust-dark/80 hover:bg-rust-dark p-2 rounded-lg text-xl backdrop-blur-sm transition-all">
+      🔍+
+    </button>
+    <button id="zoomOut" class="bg-rust-dark/80 hover:bg-rust-dark p-2 rounded-lg text-xl backdrop-blur-sm transition-all">
+      🔍-
+    </button>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script define:vars={{ mapImage: getMapImage(server) }}>
+  // Initialize map
+  const map = L.map('rustMap', {
+    crs: L.CRS.Simple,
+    minZoom: 0,
+    maxZoom: 2,
+    zoomControl: false,
+    maxBounds: [[0, 0], [1000, 1000]],
+    maxBoundsViscosity: 1.0
+  });
+
+  // Set map bounds based on image dimensions
+  const bounds = [[0, 0], [1000, 1000]];
+  const image = L.imageOverlay(mapImage, bounds).addTo(map);
+  map.fitBounds(bounds);
+
+  // Controls
+  document.getElementById('zoomIn').addEventListener('click', () => {
+    map.zoomIn();
+  });
+
+  document.getElementById('zoomOut').addEventListener('click', () => {
+    map.zoomOut();
+  });
+
+  // Add smooth zoom animation
+  map.on('zoomstart', () => {
+    document.getElementById('rustMap').style.transition = 'transform 0.3s ease';
+  });
+</script>
+
+<style>
+  .leaflet-container {
+    background: transparent;
+  }
+
+  .custom-div-icon {
+    background: transparent;
+    border: none;
+  }
+
+  .leaflet-popup-content-wrapper {
+    background: rgba(45, 45, 45, 0.9);
+    color: white;
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+  }
+
+  .leaflet-popup-tip {
+    background: rgba(45, 45, 45, 0.9);
+  }
+</style>

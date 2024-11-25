@@ -1,0 +1,160 @@
+---
+interface Props {
+  plugin: {
+    details: {
+      bonuses: Array<{
+        name: string;
+        description: string;
+        criteria?: string[];
+      }>;
+      pointSystem: Array<{
+        action: string;
+        points: number;
+      }>;
+      lootPoints: Array<{
+        type: string;
+        points: number;
+      }>;
+      specialPoints: Array<{
+        type: string;
+        points: number;
+      }>;
+      settings?: {
+        enableAutoBonus: boolean;
+        bonusMultiplier: number;
+        notificationThreshold: string;
+      };
+      update: string;
+    };
+  };
+}
+
+const { plugin } = Astro.props;
+---
+<div class="mt-6 space-y-6">
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Обновление «Ежедневные награды»</h4>
+    <p class="text-gray-300 mb-4">
+      После долгих работ и тестов, хотим представить вам обновление старых «капсул» в новый свет.
+    </p>
+    <h5 class="text-md font-semibold text-rust-pink mb-2">Обновление «Ежедневные награды», изображение №1</h5>
+    <p class="text-gray-300 mb-4">
+      Теперь вы можете, играя в игру, каждый день открывать «Ежедневные яйца», которые содержат в себе награды разных уровней. (Всего 5 яиц)
+    </p>
+    <img src="https://sun9-73.userapi.com/impg/f0xmeVoL_tivjHVlbJCphpq8G2bOK4YuvMqhIg/ww8UmtJnu5M.jpg?size=807x454&quality=96&sign=210a284e7df4d03c2426cfdb1c6514f2&type=album" alt="Обновление «Ежедневные награды», изображение №1" class="w-full rounded-lg mb-4">
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Как открыть Ежедневные награды?</h4>
+    <p class="text-gray-300 mb-4">
+      Итак, начнем с того, что для открытия плагина «Ежедневные награды» нам нужно зайти в верхнее меню проекта и нажать на иконку (Рис 1), похожую на кейс.
+    </p>
+    <h5 class="text-md font-semibold text-rust-pink mb-2"></h5>
+    <img src="https://sun9-47.userapi.com/impg/BlZpK2qJlhG6JMQX7-cS5YSkOhKyWn1UJY_o3g/HLJGljQDw8w.jpg?size=272x97&quality=96&sign=6204bf9daf90b28bf1d0d67bd3c2f2f8&type=album" alt="Рис 1" class="w-full rounded-lg mb-4">
+    <p class="text-gray-300 mb-4">Для открытия нажмите на данную иконку.</p>
+    <p class="text-gray-300 mb-4">После нажатия у нас открывается плагин.</p>
+    <p class="text-gray-300 mb-4">После того как мы открыли плагин, мы видим: статистику добычи, краткую инструкцию, ежедневные яйца, линию прогресса и многое другое.</p>
+    <video src="https://www.dropbox.com/scl/fi/95kuoxmighy4nhc7wigpk/3743349672497.mp4?rlkey=ea3sd7sx58tedzvpq1ggd04pv&st=up8l3aex&dl=1" controls class="w-full rounded-lg mb-4"></video>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Получение очков</h4>
+    <p class="text-gray-300 mb-4">
+      Очки в линию прогресса начисляются за различные действия такие как: фарм руды, за каждый полный час игры на сервере, лутание ящиков, использование промокодов, убийство НПС/животных, лутание растительных культур (тыква, кукуруза, ягоды и многое другое).
+    </p>
+    <p class="text-gray-300 mb-4">
+      Если что-то не отображается в таблице, значит за это действие очки не начисляются и начисляться не будут!
+    </p>
+    <p class="text-gray-300 mb-4">
+      Внимание! Данная система начисления очков может быть как урезана, так и повышена. Мы планируем, чтобы 5 «яйцо» можно было открывать на 3 день игры.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Почему нет привилегий?</h4>
+    <p class="text-gray-300 mb-4">
+      На стадии переработки проекта нами было принято решение балансировать весь проект, в том числе и донатную составляющую. Именно поэтому мы не добавляли полноценные привилегии в данные «Ежедневные награды».
+    </p>
+    <p class="text-gray-300 mb-4">
+      Но мы не могли не добавить для вас прикольные бонусы из привилегий в «Ежедневные награды», а именно: рейты х3/4, неломаемые предметы, карманный переработчик и 70% метаболизма.
+    </p>
+    <h5 class="text-md font-semibold text-rust-pink mb-2">Пример использования промокода Test</h5>
+    <img src="https://sun9-34.userapi.com/impg/TTzLVGqXSaPESg3D33NSJYpl5JFiWVSlYDzYcQ/yE8hC9SzzPE.jpg?size=597x97&quality=96&sign=dd2fee4355085688aeff7f321a43abb4&type=album" alt="Пример использования промокода Test" class="w-full rounded-lg mb-4">
+    <p class="text-gray-300 mb-4">
+      Наши медийные личности, имеющие промокоды:
+    </p>
+    <ul class="list-disc list-inside text-gray-300">
+      <li><a href="https://www.youtube.com/@WeilJons" class="text-rust-pink">Weil Jons</a></li>
+      <li><a href="https://www.youtube.com/@Rain_rust" class="text-rust-pink">Rain</a></li>
+      <li><a href="https://www.youtube.com/@fragman1" class="text-rust-pink">Фрагман</a></li>
+      <li><a href="https://www.youtube.com/@Bolauk" class="text-rust-pink">Bolauk</a></li>
+    </ul>
+    <p class="text-gray-300 mt-4">
+      Список медийных личностей будет обновляться в данной статье!
+    </p>
+    <p class="text-gray-300 mt-4">
+      Приятной игры и отличных открытий крутых яиц Ultimate Rust!
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Очки за действия</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.pointSystem.map(item => (
+        <div class="bg-rust-dark/20 p-3 rounded-lg flex justify-between items-center">
+          <span>{item.action}</span>
+          <span class="text-rust-pink">{item.points}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Очки за лут</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.lootPoints.map(item => (
+        <div class="bg-rust-dark/20 p-3 rounded-lg flex justify-between items-center">
+          <span>{item.type}</span>
+          <span class="text-rust-pink">{item.points}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Специальные действия</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.specialPoints.map(item => (
+        <div class="bg-rust-dark/20 p-3 rounded-lg flex justify-between items-center">
+          <span>{item.type}</span>
+          <span class="text-rust-pink">{item.points}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Важные заметки</h4>
+    <div class="space-y-2">
+      <div class="flex items-start space-x-2">
+        <span class="text-red-500">⚠️</span>
+        <p class="text-gray-300">Награда начисляется автоматически с вайпом по итогам предыдущего вайпа</p>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-red-500">⚠️</span>
+        <p class="text-gray-300">Для получения награды необходима авторизация на сайте</p>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-red-500">⚠️</span>
+        <p class="text-gray-300">Можно скрыть статистику крафта и добычи от других игроков</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Последнее обновление</h4>
+    <p class="text-gray-300">
+      Версия от {plugin.details.update}. Мы продолжаем улучшать систему статистики и добавлять новые функции!
+    </p>
+  </div>
+</div>

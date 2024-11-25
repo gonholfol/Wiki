@@ -1,0 +1,21 @@
+{
+  "name": "rust-wiki-forum",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.0",
+    "@tensorflow/tfjs": "^4.17.0",
+    "@tensorflow-models/coco-ssd": "^2.2.3",
+    "astro": "^4.5.3",
+    "leaflet": "^1.9.4",
+    "tailwindcss": "^3.4.1"
+  }
+}

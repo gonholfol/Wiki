@@ -1,0 +1,45 @@
+---
+interface Material {
+  name: string;
+  amount: number;
+}
+
+interface Props {
+  name: string;
+  icon: string;
+  materials: Material[];
+  craftTime: string;
+  category: string;
+}
+
+const { name, icon, materials, craftTime, category } = Astro.props;
+---
+
+<div class="bg-rust-dark/50 rounded-lg p-6 hover:bg-rust-dark/70 transition-colors">
+  <div class="flex items-center space-x-3 mb-4">
+    <span class="text-3xl">{icon}</span>
+    <div>
+      <h3 class="text-xl font-semibold">{name}</h3>
+      <span class="text-sm text-gray-400">{category}</span>
+    </div>
+  </div>
+  
+  <div class="space-y-4">
+    <div>
+      <span class="text-gray-400 text-sm">Требуется:</span>
+      <div class="mt-2 space-y-2">
+        {materials.map(material => (
+          <div class="flex justify-between items-center">
+            <span>{material.name}</span>
+            <span class="text-rust-pink">{material.amount}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <div class="flex justify-between items-center pt-2 border-t border-rust-gray">
+      <span class="text-gray-400">Время крафта:</span>
+      <span>{craftTime}</span>
+    </div>
+  </div>
+</div>

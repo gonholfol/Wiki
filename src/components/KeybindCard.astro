@@ -1,0 +1,13 @@
+---
+interface Props {
+  key: string;
+  action: string;
+}
+
+const { key, action } = Astro.props;
+---
+
+<div class="bg-rust-dark/30 p-3 rounded">
+  <kbd class="px-2 py-1 bg-rust-pink/20 rounded text-sm">{key}</kbd>
+  <span class="ml-2 text-sm text-gray-400">{action}</span>
+</div>

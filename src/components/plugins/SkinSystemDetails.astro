@@ -1,0 +1,119 @@
+---
+interface Props {
+  plugin: {
+    details: {
+      commands: {
+        skins: string;
+        settings: string;
+      };
+      features: string[];
+      categories: Array<{
+        name: string;
+        description: string;
+      }>;
+      skinFeatures: string[];
+      update: string;
+    };
+  };
+}
+
+const { plugin } = Astro.props;
+---
+
+<div class="mt-6 space-y-6">
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Введение</h4>
+    <p class="text-gray-300 mb-4">
+      Представляем новую систему скинов, которая делает доступными множество скинов для всех игроков. Система включает скины как на предметы, так и на постройки, а также позволяет кастомизировать ваши дома ивентовыми предметами.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Команды</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-rust-dark/20 p-4 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">🎨</span>
+          <div>
+            <p class="font-medium">{plugin.details.commands.skins}</p>
+            <p class="text-sm text-gray-400">Открыть меню скинов</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-rust-dark/20 p-4 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">⚙️</span>
+          <div>
+            <p class="font-medium">{plugin.details.commands.settings}</p>
+            <p class="text-sm text-gray-400">Настройки скинов</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Особенности системы</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.features.map(feature => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <div class="flex items-start space-x-2">
+            <span class="text-rust-pink">✓</span>
+            <p class="text-gray-300">{feature}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Разделы скинов</h4>
+    <div class="grid grid-cols-1 gap-4">
+      {plugin.details.categories.map(category => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <h5 class="font-medium mb-2">{category.name}</h5>
+          <p class="text-gray-300">{category.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Взаимодействие со скинами</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.skinFeatures.map(feature => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <div class="flex items-start space-x-2">
+            <span class="text-rust-pink">★</span>
+            <p class="text-gray-300">{feature}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Важные заметки</h4>
+    <div class="space-y-2">
+      <div class="flex items-start space-x-2">
+        <span class="text-rust-pink">ℹ️</span>
+        <p class="text-gray-300">Статистика очков для скинов не обнуляется и накапливается постоянно</p>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-rust-pink">ℹ️</span>
+        <p class="text-gray-300">Скины на постройки приобретаются за очки из статистики</p>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-rust-pink">ℹ️</span>
+        <p class="text-gray-300">Уникальные скины Героя доступны только при полном прохождении Battle Pass</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Последнее обновление</h4>
+    <p class="text-gray-300">
+      Версия от {plugin.details.update}. Мы продолжаем добавлять новые скины и улучшать систему!
+    </p>
+  </div>
+</div>

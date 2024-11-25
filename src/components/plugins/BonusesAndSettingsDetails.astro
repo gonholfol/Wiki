@@ -1,0 +1,172 @@
+---
+interface Props {
+  plugin: {
+    details: {
+      bonuses: Array<{
+        name: string;
+        description: string;
+        criteria?: string[];
+      }>;
+      settings?: {
+        enableAutoBonus: boolean;
+        bonusMultiplier: number;
+        notificationThreshold: string;
+      };
+      update: string;
+    };
+  };
+}
+
+const { plugin } = Astro.props;
+---
+<div class="mt-6 space-y-6">
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Введение</h4>
+    <p class="text-gray-300 mb-4">
+      Плагин "Бонусы и Настройки" предоставляет игрокам дополнительные возможности для улучшения игрового опыта через различные бонусы и настраиваемые параметры.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Бонусы</h4>
+    <div class="space-y-4">
+      {plugin.details.bonuses.map(bonus => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <h5 class="font-medium mb-2">{bonus.name}</h5>
+          <p class="text-gray-300">{bonus.description}</p>
+          {bonus.criteria && bonus.criteria.length > 0 && (
+            <ul class="list-disc list-inside text-gray-300 mt-2">
+              {bonus.criteria.map((criterion, index) => (
+                <li key={index}>{criterion}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Настройки</h4>
+    <div class="space-y-4">
+      <div class="bg-rust-dark/20 p-4 rounded-lg">
+        <p class="text-gray-300">
+          <strong>Автоматическое начисление бонусов:</strong> {plugin.details.settings?.enableAutoBonus ? 'Включено' : 'Выключено'}
+        </p>
+        <p class="text-gray-300">
+          <strong>Множитель бонусов:</strong> {plugin.details.settings?.bonusMultiplier}x
+        </p>
+        <p class="text-gray-300">
+          <strong>Порог уведомлений:</strong> {plugin.details.settings?.notificationThreshold}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Обновление «Бонусы и настройки»</h4>
+    <p class="text-gray-300 mb-4">
+      Меню настройки - это новый плагин нашего сервера, в котором мы собрали все самые важные функции, которыми вы можете управлять, а также добавляем бонусы за приписку #ultimaterust в имени игрока.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Внешний вид наших настроек</h4>
+    <p class="text-gray-300 mb-4">
+      Для того чтобы открыть плагин, пропишите новую команду в чат: <code>/settings</code>.
+    </p>
+    <p class="text-gray-300 mb-4">
+      В зависимости от сервера и функционала сервера, настройки могут отличаться. Например, на серверах One Grid нет рюкзака, следовательно, кнопка «Отображать рюкзак» там работать не будет.
+    </p>
+    <p class="text-gray-300 mb-4">
+      Для подключения уведомлений вам нужно перейти в наши паблики. Подключить уведомление в Discord можно в комнате код-авторизации.
+    </p>
+    <p class="text-gray-300">
+      Также не забывайте внимательно читать инструкции. При добавлении ссылки не забудьте нажать клавишу «Enter».
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Удобные настройки префиксов</h4>
+    <p class="text-gray-300 mb-4">Мы сделали более удобное изменение префиксов, если у вас имеются привилегии или вы достигли в BattlePass до 110 уровня и получили статус Герой.</p>
+    <p class="text-gray-300 mb-4">По умолчанию вы видите все имеющиеся префиксы на нашем проекте, но не все могут быть вам доступны. Не забывайте это!</p>
+    <h5 class="text-md font-semibold text-rust-pink mb-2">Пример префиксов</h5>
+    <img src="/path-to-image/example-prefixes.png" alt="Пример префиксов" class="w-full rounded-lg">
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Бонусы за приписку в нике</h4>
+    <p class="text-gray-300 mb-4">На выбор у вас имеется 5 видов бонусов, но выбрать вы можете только 1. Если вы хотите поменять бонус, придется подождать 24 часа.</p>
+    <p class="text-gray-300 mb-4">Для того чтобы бонус сработал, вам нужно до захода на сервер добавить к своему нику в Steam <code>#ultimaterust</code> и после заходить на сервер.</p>
+    <h5 class="text-md font-semibold text-rust-pink mb-2">Виды бонусов:</h5>
+    <ol class="list-decimal list-inside text-gray-300 space-y-2">
+      <li>
+        <strong>70% метаболизма</strong> - бонус, при котором вы при появлении на спальнике или пляже будете иметь 70% еды, воды и HP.
+      </li>
+      <li>
+        <strong>+5 рублей в день на shop</strong> - начисляет вам за 1 час игры на сервере каждый день 5 рублей на баланс нашего магазина <a href="https://ultimaterust.com" class="text-rust-pink">ultimaterust.com</a>.
+      </li>
+      <li>
+        <strong>x0.5 рейты к добыче</strong> - увеличивает рейты на добычу руды на x0.5.
+      </li>
+      <li>
+        <strong>Ускорение лечения</strong> - ускоряет ваше лечение на 15% при использовании любого лечения.
+      </li>
+      <li>
+        <strong>Вечная Еда и Вода</strong> - с этим бонусом вы можете забыть, что такое еда и вода, теперь она вам не нужна.
+      </li>
+    </ol>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Другие настройки</h4>
+    <p class="text-gray-300 mb-4">
+      Теперь вы можете скрывать у себя на экране лишний интерфейс, чтобы он не мешал.
+    </p>
+    <p class="text-gray-300 mb-4">
+      Скрытие интерфейса не означает, что у вас не будет работать рюкзак или ваш ник не будет отображаться в строке убийств.
+    </p>
+    <p class="text-gray-300 mb-4">
+      Например, рюкзак вы всегда сможете открыть с выключенным отображением, забиндив команду рюкзака на любую кнопку:
+    </p>
+    <pre class="bg-rust-dark/50 p-4 rounded-lg overflow-auto">
+<code class="language-plaintext">bind p chat.say /bp - теперь по нажатию на клавишу P вы можете его открывать.</code>
+    </pre>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Новые уведомления о рейде</h4>
+    <p class="text-gray-300 mb-4">
+      Уведомления о рейде добавляются на все сервера, и теперь база едина, а это значит, что вам теперь нужно один раз подключить уведомления о рейде, и они будут приходить вне зависимости от того, на каком сервере вы их подключали изначально.
+    </p>
+    <p class="text-gray-300 mb-4">
+      Подключение уведомлений о рейде стало интуитивно понятным, и настройка занимает всего пару минут.
+    </p>
+    <p class="text-gray-300 mb-4">
+      Также уведомления теперь будут приходить абсолютно на любой объект, который у вас имеется в доме, даже на камеру.
+    </p>
+    <p class="text-gray-300 mb-4">
+      <strong>Внимание!</strong> Мы перевели только основные предметы, которые могут быть сломаны. Следовательно, камера, которую ломают единицы, отобразится вам как <code>cctv.camera</code>.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Новые взаимодействия с тиммейтом</h4>
+    <p class="text-gray-300 mb-4">
+      Теперь вы можете ограничить своего тиммейта, если не хотите давать ему полный доступ к своим постройкам.
+    </p>
+    <p class="text-gray-300 mb-4">
+      По умолчанию при добавлении в «зеленку» у вас все настройки включены.
+    </p>
+    <p class="text-gray-300">
+      <strong>Внимание!</strong> Данные настройки распространяются на всех тиммейтов, которые находятся у вас в команде.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Последнее обновление</h4>
+    <p class="text-gray-300">
+      Версия от {plugin.details.update}. Мы продолжаем добавлять новые бонусы и улучшать настройки плагина для лучшего игрового опыта!
+    </p>
+  </div>
+</div>

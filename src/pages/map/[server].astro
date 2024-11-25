@@ -1,0 +1,188 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import RustMap from '../../components/RustMap.astro';
+
+export function getStaticPaths() {
+  return [
+    {params: {server: 'paradise'}},
+    {params: {server: 'pirate-bay'}},
+    {params: {server: 'one-grid-small'}},
+    {params: {server: 'zombie-land'}},
+    {params: {server: 'one-grid-big'}}
+  ];
+}
+
+const { server } = Astro.params;
+
+const mapDescriptions = {
+  'paradise': {
+    title: "Стандартная карта",
+    description: "Классическая карта размером 4000x4000 с разнообразным ландшафтом. Включает в себя все стандартные монументы и ресурсные зоны Rust.",
+    features: [
+      "Все стандартные монументы",
+      "Сбалансированное распределение ресурсов",
+      "Разнообразный рельеф местности",
+      "Множество локаций для строительства"
+    ]
+  },
+  'pirate-bay': {
+    title: "Карта 2X сервера",
+    description: "Компактная карта 3500x3500 с повышенной плотностью ресурсов и оптимизированным расположением монументов.",
+    features: [
+      "Увеличенное количество ресурсов",
+      "Оптимизированное расположение монументов",
+      "Компактные зоны для PvP",
+      "Удобные точки респауна"
+    ]
+  },
+  'one-grid-small': {
+    title: "Карта 5X сервера",
+    description: "Небольшая карта 3000x3000 с максимальной концентрацией ресурсов для быстрого развития.",
+    features: [
+      "Максимальная плотность ресурсов",
+      "Близкое расположение монументов",
+      "Активные PvP зоны",
+      "Частые столкновения игроков"
+    ]
+  },
+  'zombie-land': {
+    title: "PvE карта",
+    description: "Большая карта 5000x5000 с акцентом на исследование и PvE контент.",
+    features: [
+      "Расширенные безопасные зоны",
+      "Специальные PvE локации",
+      "Множество мест для строительства",
+      "Уникальные события и квесты"
+    ]
+  },
+  'one-grid-big': {
+    title: "Карта Battle Royale",
+    description: "Динамичная карта 2500x2500 специально оптимизированная для режима Battle Royale.",
+    features: [
+      "Сбалансированный лут",
+      "Стратегические точки высадки",
+      "Динамичная зона сужения",
+      "Уникальные точки интереса"
+    ]
+  }
+};
+
+const serverInfo = {
+  'paradise': {
+    name: "Paradise",
+    icon: "🌍",
+    description: "Сервер с кастомной картой и модификациями",
+    wipe: "Каждую субботу",
+    maxGroup: 2,
+  },
+  'pirate-bay': {
+    name: "Pirate Bay",
+    icon: "⚡",
+    description: "Сервер с кастомной картой и модификациями и входом для пиратов",
+    wipe: "Каждую пятницу",
+    maxGroup: 3,
+  },
+  'one-grid-small': {
+    name: "One Grid Small",
+    icon: "🏰",
+    description: "Сервер с маленькой картой для двоих игроков",
+    wipe: "Каждый вторник и пятницу",
+    maxGroup: 2,
+  },
+  'zombie-land': {
+    name: "Zombie Land",
+    icon: "🧟‍♂️",
+    description: "Сервер с кастомными зомби и модификациями",
+    wipe: "Каждую пятницу",
+    maxGroup: 4,
+  },
+  'one-grid-big': {
+    name: "One Grid Big",
+    icon: "🏰",
+    description: "Сервер с маленькой картой для троих игроков",
+    wipe: "Каждый вторник и пятницу",
+    maxGroup: 3,
+  }
+}[server];
+
+const mapDescription = mapDescriptions[server];
+---
+
+<Layout title={`${serverInfo.name} - Карта - Ultimate Rust Wiki`}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <div class="mb-6 flex items-center justify-between">
+        <PageHeader 
+          title={`Карта сервера ${serverInfo.name}`}
+          subtitle={serverInfo.description}
+        />
+        <a 
+          href="/map"
+          class="text-rust-pink hover:text-rust-pink/80 transition-colors flex items-center space-x-2 group"
+        >
+          <span class="transform transition-transform group-hover:-translate-x-1">←</span>
+          <span>Назад к списку серверов</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <Section title="Интерактивная карта">
+            <RustMap server={server} />
+          </Section>
+        </div>
+
+        <div class="space-y-6">
+          <div class="bg-rust-dark/50 rounded-lg p-6 transform hover:scale-[1.02] transition-all duration-300">
+            <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+              <span class="animate-bounce">{serverInfo.icon}</span>
+              <span>Информация о сервере</span>
+            </h3>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center p-2 bg-rust-dark/30 rounded hover:bg-rust-dark/50 transition-colors">
+                <span class="text-gray-400">Вайп:</span>
+                <span class="text-rust-pink">{serverInfo.wipe}</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-rust-dark/30 rounded hover:bg-rust-dark/50 transition-colors">
+                <span class="text-gray-400">Макс. группа:</span>
+                <span class="text-rust-pink">{serverInfo.maxGroup}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-rust-dark/50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">{mapDescription.title}</h3>
+            <p class="text-gray-300 mb-4">{mapDescription.description}</p>
+            <div class="grid grid-cols-1 gap-2">
+              {mapDescription.features.map(feature => (
+                <div class="flex items-center space-x-2">
+                  <span class="text-rust-pink">•</span>
+                  <span class="text-gray-300">{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.5s ease-out forwards;
+  }
+</style>

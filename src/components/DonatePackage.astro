@@ -1,0 +1,66 @@
+---
+interface Feature {
+  name: string;
+  details: string;
+  command?: string;
+}
+
+interface Package {
+  name: string;
+  icon: string;
+  price: string;
+  duration: string;
+  color: string;
+  purchaseLink: string;
+  features: Feature[];
+}
+
+interface Props {
+  package: Package;
+}
+
+const { package: pkg } = Astro.props;
+---
+
+<div class="bg-rust-dark/50 rounded-lg p-6 hover:bg-rust-dark/70 transition-all duration-300 transform hover:scale-[1.02]">
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center space-x-3">
+      <span class="text-3xl">{pkg.icon}</span>
+      <div>
+        <h3 class={`text-xl font-semibold ${pkg.color}`}>{pkg.name}</h3>
+        <span class="text-gray-400">на {pkg.duration}</span>
+      </div>
+    </div>
+    <span class="text-rust-pink font-bold text-xl">{pkg.price}</span>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {pkg.features.map(feature => (
+      <div class="bg-rust-dark/30 rounded-lg p-4">
+        <div class="flex items-start space-x-2">
+          <span class="text-green-500">✓</span>
+          <div>
+            <h4 class="font-medium">{feature.name}</h4>
+            <p class="text-sm text-gray-400">{feature.details}</p>
+            {feature.command && (
+              <span class="inline-block mt-1 px-2 py-0.5 bg-rust-pink/20 rounded text-xs">
+                {feature.command}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <div class="mt-6 flex justify-center">
+    <a 
+      href={pkg.purchaseLink} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="bg-rust-pink/20 hover:bg-rust-pink/30 transition-colors rounded-lg py-3 px-8 text-lg font-semibold text-center block w-full sm:w-auto"
+    >
+      Купить {pkg.name}
+    </a>
+  </div>
+</div>

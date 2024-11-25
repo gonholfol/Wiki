@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const servers = [
+  {
+    id: "paradise",
+    name: "Paradise",
+    icon: "🌍",
+    description: "Классический ",
+    wipe: "Каждый четвер1г",
+    maxGroup: 4,
+    status: "online"
+  },
+  {
+    id: "pirate-bay",
+    name: "Pirate Bay",
+    icon: "🏴‍☠️",
+    description: "Как Paradise, но с пиратами",
+    wipe: "Каждую пятницу",
+    maxGroup: 3,
+    status: "online"
+  },
+  {
+    id: "one-grid-small",
+    name: "One Grid Small",
+    icon: "🏰",
+    description: "Максимально быстрое развитие",
+    wipe: "Каждую субботу",
+    maxGroup: 4,
+    status: "online"
+  },
+  {
+    id: "zombie-land",
+    name: "Zombie Land",
+    icon: "🧟‍♂️",
+    description: "Сервер с кастомными зомби ",
+    wipe: "Каждую пятницу",
+    maxGroup: 4,
+    status: "online"
+  },
+  {
+    id: "one-grid-big",
+    name: "One Grid Big",
+    icon: "🏰",
+    description: "Сервер с большой картой",
+    wipe: "Каждый вторник и пятницу",
+    maxGroup: 8,
+    status: "online"
+  }
+];
+---
+
+<Layout title="Карты серверов - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <PageHeader 
+        title="Карты серверов" 
+        subtitle="Выберите сервер для просмотра карты" 
+      />
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {servers.map(server => (
+          <a 
+            href={`/map/${server.id}`}
+            class="bg-rust-dark/50 rounded-lg p-6 hover:bg-rust-dark/70 transition-all duration-300 transform hover:scale-[1.02] group"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <span class="text-3xl group-hover:animate-bounce">{server.icon}</span>
+                <div>
+                  <h3 class="text-xl font-semibold group-hover:text-rust-pink transition-colors">{server.name}</h3>
+                  <div class="flex items-center space-x-2 mt-1">
+                    <span class={`w-2 h-2 rounded-full ${server.status === 'online' ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></span>
+                    <span class="text-sm text-gray-400">{server.status === 'online' ? 'Онлайн' : 'Оффлайн'}</span>
+                  </div>
+                </div>
+              </div>
+              <span class="text-rust-pink transform transition-transform duration-300 group-hover:translate-x-2">→</span>
+            </div>
+            <p class="text-gray-300 mb-4">{server.description}</p>
+            <div class="flex justify-between text-sm text-gray-400">
+              <span>Вайп: {server.wipe}</span>
+              <span>Макс. группа: {server.maxGroup}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

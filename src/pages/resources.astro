@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import ResourceCard from '../components/ResourceCard.astro';
+
+const resources = [
+  {
+    name: "Дерево",
+    icon: "🌲",
+    location: "Лесные зоны",
+    tools: ["Топор", "Бензопила"],
+    yield: "200-500 за дерево",
+    respawnTime: "30 минут"
+  },
+  {
+    name: "Металл",
+    icon: "⛏️",
+    location: "Горы, пустыни",
+    tools: ["Кирка", "Отбойный молоток"],
+    yield: "300-1000 за узел",
+    respawnTime: "45 минут"
+  },
+  {
+    name: "Камень",
+    icon: "🪨",
+    location: "Горы, равнины",
+    tools: ["Кирка", "Отбойный молоток"],
+    yield: "500-1000 за узел",
+    respawnTime: "40 минут"
+  },
+  {
+    name: "Сера",
+    icon: "💥",
+    location: "Пустыня, вулкан",
+    tools: ["Кирка", "Отбойный молоток"],
+    yield: "200-500 за узел",
+    respawnTime: "60 минут"
+  }
+];
+
+const hotspots = [
+  {
+    name: "Запуск",
+    resources: ["Металл", "Компоненты", "Оружие"],
+    difficulty: "Высокая",
+    pvp: "Активное"
+  },
+  {
+    name: "Военные туннели",
+    resources: ["Компоненты", "Оружие", "Медикаменты"],
+    difficulty: "Высокая",
+    pvp: "Очень активное"
+  },
+  {
+    name: "Супермаркет",
+    resources: ["Еда", "Базовые компоненты"],
+    difficulty: "Средняя",
+    pvp: "Среднее"
+  }
+];
+---
+
+<Layout title="Ресурсы - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <PageHeader 
+        title="Ресурсы" 
+        subtitle="Гайд по добыче и фарму ресурсов" 
+      />
+      
+      <Section title="Основные ресурсы">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {resources.map(resource => (
+            <ResourceCard {...resource} />
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Точки фарма">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {hotspots.map(spot => (
+            <div class="bg-rust-dark/50 rounded-lg p-6">
+              <h3 class="text-xl font-semibold mb-3">{spot.name}</h3>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Сложность:</span>
+                  <span>{spot.difficulty}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">PvP:</span>
+                  <span>{spot.pvp}</span>
+                </div>
+                <div class="mt-3">
+                  <span class="text-gray-400">Ресурсы:</span>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    {spot.resources.map(res => (
+                      <span class="px-2 py-1 bg-rust-pink/20 rounded-full text-sm">{res}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Советы по фарму">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-rust-dark/50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Эффективный фарм</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Используйте лучшие инструменты</li>
+              <li>Фармите в безопасных зонах</li>
+              <li>Регулярно относите ресурсы в базу</li>
+              <li>Следите за временем респауна</li>
+              <li>Используйте транспорт для перевозки</li>
+            </ul>
+          </div>
+          <div class="bg-rust-dark/50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Безопасность при фарме</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Носите броню при фарме</li>
+              <li>Следите за окружением</li>
+              <li>Имейте путь отступления</li>
+              <li>Фармите группой в опасных зонах</li>
+              <li>Используйте разведку перед фармом</li>
+            </ul>
+          </div>
+        </div>
+      </Section>
+    </div>
+  </main>
+</Layout>

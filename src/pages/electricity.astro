@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import CircuitCard from '../components/CircuitCard.astro';
+
+const circuits = [
+  {
+    name: "Автоматические двери",
+    icon: "🚪",
+    components: ["Таймер", "Переключатель", "Провода", "Источник питания"],
+    power: 10,
+    difficulty: "Средняя",
+    description: "Система автоматического открывания/закрывания дверей по таймеру"
+  },
+  {
+    name: "Система сигнализации",
+    icon: "🚨",
+    components: ["Датчик движения", "Сирена", "Провода", "Источник питания"],
+    power: 5,
+    difficulty: "Легкая",
+    description: "Простая сигнализация с датчиком движения"
+  },
+  {
+    name: "Умное освещение",
+    icon: "💡",
+    components: ["Датчик движения", "Лампы", "Таймер", "Провода", "Источник питания"],
+    power: 15,
+    difficulty: "Средняя",
+    description: "Автоматическое освещение с датчиком движения и таймером"
+  },
+  {
+    name: "Турельная система",
+    icon: "🎯",
+    components: ["Турель", "Датчик движения", "Переключатель", "Провода", "Источник питания"],
+    power: 25,
+    difficulty: "Сложная",
+    description: "Автоматическая система защиты с турелью"
+  }
+];
+
+const powerSources = [
+  {
+    name: "Солнечная панель",
+    output: "20 Вт",
+    conditions: "Требует дневной свет",
+    reliability: "Зависит от времени суток"
+  },
+  {
+    name: "Ветрогенератор",
+    output: "150 Вт",
+    conditions: "Требует высоту и открытое пространство",
+    reliability: "Зависит от погоды"
+  },
+  {
+    name: "Генератор",
+    output: "500 Вт",
+    conditions: "Требует топливо",
+    reliability: "Стабильная при наличии топлива"
+  }
+];
+---
+
+<Layout title="Электричество - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <PageHeader 
+        title="Электричество" 
+        subtitle="Гайды по электрическим системам и автоматизации" 
+      />
+      
+      <Section title="Схемы">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {circuits.map(circuit => (
+            <CircuitCard {...circuit} />
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Источники питания">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {powerSources.map(source => (
+            <div class="bg-rust-dark/50 rounded-lg p-6">
+              <h3 class="text-xl font-semibold mb-3">{source.name}</h3>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Мощность:</span>
+                  <span>{source.output}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Условия:</span>
+                  <span>{source.conditions}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Надежность:</span>
+                  <span>{source.reliability}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Основы электричества">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-rust-dark/50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Базовые компоненты</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Провода - соединяют компоненты</li>
+              <li>Переключатели - управляют потоком энергии</li>
+              <li>Таймеры - автоматизируют действия</li>
+              <li>Датчики - реагируют на события</li>
+              <li>Аккумуляторы - хранят энергию</li>
+            </ul>
+          </div>
+          <div class="bg-rust-dark/50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Советы по электрике</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Планируйте схему заранее</li>
+              <li>Используйте несколько источников питания</li>
+              <li>Устанавливайте предохранители</li>
+              <li>Защищайте провода и компоненты</li>
+              <li>Тестируйте систему перед использованием</li>
+            </ul>
+          </div>
+        </div>
+      </Section>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,37 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  wipe: string;
+  maxGroup: number;
+  status: string;
+}
+
+const { id, name, icon, description, wipe, maxGroup, status } = Astro.props;
+---
+
+<a 
+  href={`/map/${id}`}
+  class="bg-rust-dark/50 rounded-lg p-6 hover:bg-rust-dark/70 transition-all duration-300 transform hover:scale-[1.02] group"
+>
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center space-x-3">
+      <span class="text-3xl group-hover:animate-bounce">{icon}</span>
+      <div>
+        <h3 class="text-xl font-semibold group-hover:text-rust-pink transition-colors">{name}</h3>
+        <div class="flex items-center space-x-2 mt-1">
+          <span class={`w-2 h-2 rounded-full ${status === 'online' ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></span>
+          <span class="text-sm text-gray-400">{status === 'online' ? 'Онлайн' : 'Оффлайн'}</span>
+        </div>
+      </div>
+    </div>
+    <span class="text-rust-pink transform transition-transform duration-300 group-hover:translate-x-2">→</span>
+  </div>
+  <p class="text-gray-300 mb-4">{description}</p>
+  <div class="flex justify-between text-sm text-gray-400">
+    <span>Вайп: {wipe}</span>
+    <span>Макс. группа: {maxGroup}</span>
+  </div>
+</a>

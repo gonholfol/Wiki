@@ -1,0 +1,196 @@
+---
+interface Stats {
+  kills: number;
+  raids: number;
+  resources: string;
+}
+
+interface Profile {
+  name: string;
+  steamId: string;
+  steamUrl?: string;
+  avatar: string;
+  rank: string;
+  hours: number;
+  status: string;
+  achievements: string[];
+  stats: Stats;
+}
+
+interface Props {
+  profile: Profile;
+  type: 'donor' | 'player' | 'weekly';
+}
+
+const { profile, type } = Astro.props;
+
+// Определение привилегий для каждого ранга
+const rankPrivileges: { [key: string]: string[] } = {
+  "UltimatePro": [
+    "Доступ к эксклюзивным разделам",
+    "Повышенные рейты добычи",
+    "Приоритетная поддержка",
+    "Эксклюзивные иконки профиля"
+  ],
+  "Ultimate": [
+    "Повышенные рейты добычи",
+    "Расширенные возможности телепорта",
+    "Увеличенное количество слотов"
+  ],
+  "Premium": [
+    "Увеличенные рейты добычи",
+    "Дополнительные слоты в рюкзаке",
+    "Ускоренная перезарядка телепорта"
+  ],
+  "VIP": [
+    "Ускоренные рейты добычи",
+    "Минимальная перезарядка телепорта",
+    "Доступ к VIP-зонам"
+  ],
+  "Герой": [
+    "Эксклюзивные боевые навыки",
+    "Повышенная защита",
+    "Доступ к уникальным предметам"
+  ],
+  "Яйцо об голову": [
+    "Хазбик бездарь",
+    "Утрений отсос",
+    "Йогурт подзалупник"
+  ],
+  "Мой Фанат": [
+    "ты мой зая долбаёб",
+    "на тебя кончу прольём",
+    "до оргазма доведём"
+  ],
+  "Позорище": [
+    "Пива ëбаный урод",
+    "Фермер, нищий хуеглот",
+    "Каждый день берëт он в рот"
+  ]
+};
+
+const getBadgeColor = (rank: string) => {
+  switch (rank) {
+    case 'UltimatePro':
+      return 'bg-purple-700/20 text-purple-500';
+    case 'Ultimate':
+      return 'bg-yellow-500/20 text-yellow-500';
+    case 'Premium':
+      return 'bg-indigo-500/20 text-indigo-500';
+    case 'VIP':
+      return 'bg-green-500/20 text-green-500';
+    case 'Герой':
+      return 'bg-yellow-700/20 text-yellow-700';
+    case 'LOOSER':
+      return 'bg-red-500/20 text-red-500';
+    default:
+      return 'bg-gray-500/20 text-gray-300';
+  }
+};
+
+const getStatusColor = (status: string) => {
+  return status === 'Онлайн' ? 'text-green-400' : 'text-gray-400';
+};
+
+const getTypeStyles = (type: string) => {
+  switch (type) {
+    case 'donor':
+      return 'border-purple-500/30';
+    case 'player':
+      return 'border-blue-500/30';
+    case 'weekly':
+      return 'border-green-500/30';
+    default:
+      return 'border-gray-500/30';
+  }
+};
+
+// Конвертирование Steam ID в URL Steam Community, если steamUrl не предоставлен
+const getSteamUrl = (steamId: string, steamUrl?: string) => {
+  if (steamUrl) {
+    return steamUrl;
+  }
+
+  const parts = steamId.split(':');
+  if (parts.length === 3) {
+    const steamId64 = BigInt(76561197960265728n) + BigInt(parts[1]) + BigInt(parts[2]) * 2n;
+    return `https://steamcommunity.com/profiles/${steamId64.toString()}`;
+  }
+  return '#';
+};
+---
+
+<div class={`bg-rust-dark/50 rounded-lg p-6 border ${getTypeStyles(type)} hover:bg-rust-dark/70 transition-all duration-300 transform hover:scale-[1.02]`}>
+  <div class="flex items-start justify-between mb-4">
+    <div class="flex items-center space-x-3">
+      <div class="text-4xl bg-rust-dark rounded-lg w-12 h-12 flex items-center justify-center">
+        {profile.avatar}
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold">{profile.name}</h3>
+        <div class="flex items-center space-x-2 mt-1">
+          <span class={`px-2 py-0.5 rounded text-sm ${getBadgeColor(profile.rank)}`}>
+            {profile.rank}
+          </span>
+          <span class={`text-sm ${getStatusColor(profile.status)}`}>
+            {profile.status}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="text-right">
+      <span class="text-gray-400 text-sm">Наиграно</span>
+      <p class="text-rust-pink font-bold">{profile.hours}ч</p>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <div class="grid grid-cols-3 gap-4">
+      <div class="text-center">
+        <span class="text-gray-400 text-sm">Убийства</span>
+        <p class="text-lg font-semibold">{profile.stats.kills}</p>
+      </div>
+      <div class="text-center">
+        <span class="text-gray-400 text-sm">Рейды</span>
+        <p class="text-lg font-semibold">{profile.stats.raids}</p>
+      </div>
+      <div class="text-center">
+        <span class="text-gray-400 text-sm">Ресурсы</span>
+        <p class="text-lg font-semibold">{profile.stats.resources}</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex flex-wrap gap-2">
+        {profile.achievements.map(achievement => (
+          <span class="px-2 py-1 bg-rust-pink/10 rounded-full text-sm">
+            {achievement}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    {rankPrivileges[profile.rank] && (
+      <div class="mt-4 bg-gray-800 p-4 rounded-lg">
+        <h4 class="text-lg font-semibold text-rust-pink mb-2">Привилегии {profile.rank}</h4>
+        <ul class="list-disc list-inside text-gray-300">
+          {rankPrivileges[profile.rank].map(privilege => (
+            <li>{privilege}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div class="pt-4 border-t border-rust-gray/30 flex justify-between items-center">
+      <span class="text-sm text-gray-400">{profile.steamId}</span>
+      <a 
+        href={getSteamUrl(profile.steamId, profile.steamUrl)} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="px-4 py-2 bg-rust-pink/20 hover:bg-rust-pink/30 transition-colors rounded-lg text-sm"
+      >
+        Открыть Steam
+      </a>
+    </div>
+  </div>
+</div>

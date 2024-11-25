@@ -1,0 +1,49 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ultimate Rust Wiki Forum" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-rust-dark text-white min-h-screen">
+    <nav class="border-b border-rust-gray backdrop-blur-sm bg-rust-dark/80 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a href="/" class="flex items-center group">
+              <img src="/logo.png" alt="Ultimate Rust Logo" class="h-8 w-auto group-hover:animate-spin-slow" />
+              <span class="ml-2 px-2 py-1 bg-white/10 rounded text-sm group-hover:bg-rust-pink/20 transition-colors">WIKI</span>
+            </a>
+          </div>
+          <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative group">
+              <input
+                type="text"
+                placeholder="Поиск информации на сайте..."
+                class="w-full bg-rust-gray/50 border border-rust-gray rounded-lg py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rust-pink transition-all"
+              />
+              <div class="absolute right-3 top-2.5 group-hover:rotate-90 transition-transform duration-300">🔍</div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <button class="p-2 rounded-full hover:bg-rust-gray transition-colors hover:rotate-12 transform duration-200">🌙</button>
+            <button class="p-2 rounded-full hover:bg-rust-gray transition-colors hover:scale-110 transform duration-200">RU</button>
+            <button class="p-2 rounded-full hover:bg-rust-gray transition-colors hover:-rotate-12 transform duration-200">🌐</button>
+            <button class="p-2 rounded-full hover:bg-rust-gray transition-colors hover:animate-pulse-glow">👤</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <slot />
+  </body>
+</html>

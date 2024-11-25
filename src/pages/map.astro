@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ServerCard from '../components/ServerCard.astro';
+import { servers } from '../data/servers';
+---
+
+<Layout title="Карты серверов - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <PageHeader 
+        title="Карты серверов" 
+        subtitle="Выберите сервер для просмотра карты" 
+      />
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {servers.map(server => (
+          <ServerCard {...server} />
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

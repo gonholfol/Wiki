@@ -1,0 +1,159 @@
+---
+interface Props {
+  plugin: {
+    details: {
+      rewards: {
+        first: string;
+        second: string;
+        third: string;
+      };
+      commands: {
+        stats: string;
+        settings: string;
+      };
+      pointSystem: Array<{
+        action: string;
+        points: number;
+      }>;
+      lootPoints: Array<{
+        type: string;
+        points: string;
+      }>;
+      specialPoints: Array<{
+        type: string;
+        points: string | number;
+      }>;
+      update: string;
+    };
+  };
+}
+
+const { plugin } = Astro.props;
+---
+
+<div class="mt-6 space-y-6">
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Введение</h4>
+    <p class="text-gray-300 mb-4">
+      В 2024 году мы представляем обновленную систему статистики игроков, которая отслеживает практически все действия: от добычи ресурсов до участия в ивентах. Система включает в себя как публичную, так и скрытую статистику.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Награды за топ места</h4>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-rust-dark/20 p-4 rounded-lg text-center">
+        <span class="text-2xl">🥇</span>
+        <h5 class="font-medium my-2">1 место</h5>
+        <p class="text-rust-pink">{plugin.details.rewards.first}</p>
+      </div>
+      <div class="bg-rust-dark/20 p-4 rounded-lg text-center">
+        <span class="text-2xl">🥈</span>
+        <h5 class="font-medium my-2">2 место</h5>
+        <p class="text-rust-pink">{plugin.details.rewards.second}</p>
+      </div>
+      <div class="bg-rust-dark/20 p-4 rounded-lg text-center">
+        <span class="text-2xl">🥉</span>
+        <h5 class="font-medium my-2">3 место</h5>
+        <p class="text-rust-pink">{plugin.details.rewards.third}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Команды</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-rust-dark/20 p-4 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">📊</span>
+          <div>
+            <p class="font-medium">{plugin.details.commands.stats}</p>
+            <p class="text-sm text-gray-400">Просмотр статистики</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-rust-dark/20 p-4 rounded-lg">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">⚙️</span>
+          <div>
+            <p class="font-medium">{plugin.details.commands.settings}</p>
+            <p class="text-sm text-gray-400">Настройки приватности</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Система начисления очков</h4>
+    <div class="space-y-4">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="text-left">
+              <th class="p-2">Действие</th>
+              <th class="p-2">Очки</th>
+            </tr>
+          </thead>
+          <tbody>
+            {plugin.details.pointSystem.map(item => (
+              <tr class="border-t border-rust-dark/20">
+                <td class="p-2">{item.action}</td>
+                <td class="p-2 text-rust-pink">{item.points}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Очки за лут</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.lootPoints.map(item => (
+        <div class="bg-rust-dark/20 p-3 rounded-lg flex justify-between items-center">
+          <span>{item.type}</span>
+          <span class="text-rust-pink">{item.points}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Специальные действия</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.specialPoints.map(item => (
+        <div class="bg-rust-dark/20 p-3 rounded-lg flex justify-between items-center">
+          <span>{item.type}</span>
+          <span class="text-rust-pink">{item.points}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Важные заметки</h4>
+    <div class="space-y-2">
+      <div class="flex items-start space-x-2">
+        <span class="text-red-500">⚠️</span>
+        <p class="text-gray-300">Награда начисляется автоматически с вайпом по итогам предыдущего вайпа</p>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-red-500">⚠️</span>
+        <p class="text-gray-300">Для получения награды необходима авторизация на сайте</p>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-red-500">⚠️</span>
+        <p class="text-gray-300">Можно скрыть статистику крафта и добычи от других игроков</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Последнее обновление</h4>
+    <p class="text-gray-300">
+      Версия от {plugin.details.update}. Мы продолжаем улучшать систему статистики и добавлять новые функции!
+    </p>
+  </div>
+</div>

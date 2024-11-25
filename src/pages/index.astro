@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+
+const categories = [
+  {
+    icon: "📜",
+    title: "Правила",
+    description: "Правила проекта и важная информация",
+    link: "/rules"
+  },
+  {
+    icon: "🗺️",
+    title: "Карта и Монументы",
+    description: "Карта сервера, все монументы и ключевые точки",
+    link: "/map"
+  },
+  {
+    icon: "🔌",
+    title: "Плагины",
+    description: "Уникальные возможности и механики сервера",
+    link: "/plugins"
+  },
+  {
+    icon: "💎",
+    title: "Донат",
+    description: "Привилегии и наборы для донатеров",
+    link: "/donors"
+  },
+  {
+    icon: "👥",
+    title: "Профили",
+    description: "Топ игроки и донатеры проекта",
+    link: "/profiles"
+  },
+  {
+    icon: "💰",
+    title: "Баланс",
+    description: "Как получить баланс на магазин",
+    link: "/balance"
+  }
+];
+
+const servers = [
+  { name: "Vanilla", status: "online" },
+  { name: "2x", status: "online" },
+  { name: "5x", status: "online" },
+  { name: "PvE", status: "online" },
+  { name: "Battle Royale", status: "online" }
+];
+---
+
+<Layout title="Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex items-center justify-between mb-12 animate-fade-up">
+      <div class="flex items-center space-x-8">
+        <div class="relative">
+          <img src="/rust-logo.png" alt="Rust Logo" class="w-32 h-32 animate-float" />
+          <div class="absolute -bottom-2 -right-2 bg-rust-pink px-2 py-1 rounded text-sm font-bold animate-pulse-glow">
+            WIKI
+          </div>
+        </div>
+        <div>
+          <h1 class="text-4xl font-bold mb-4 animate-slide-in">Ultimate Rust</h1>
+          <p class="text-gray-400 animate-slide-in" style="animation-delay: 100ms;">
+            Полное руководство по выживанию в мире Rust
+          </p>
+        </div>
+      </div>
+      <div class="w-32 h-32 bg-rust-pink/5 rounded-lg animate-pulse-glow backdrop-blur-sm">
+        <img src="/i.png" alt="Я" class="w-32 h-32 rounded-lg" />
+      </div>
+    </div>
+
+    <div class="mb-8 animate-fade-up" style="animation-delay: 200ms;">
+      <div class="flex space-x-4 overflow-x-auto py-2">
+        {servers.map((server, index) => (
+          <div 
+            class="flex items-center space-x-2 px-3 py-1 bg-rust-gray rounded-full whitespace-nowrap animate-fade-up hover:bg-rust-pink/20 transition-colors"
+            style={`animation-delay: ${index * 100 + 300}ms`}
+          >
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span>{server.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {categories.map((category, index) => (
+        <div 
+          class="animate-fade-up"
+          style={`animation-delay: ${index * 100 + 400}ms`}
+        >
+          <CategoryCard {...category} />
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>

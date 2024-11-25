@@ -1,0 +1,77 @@
+---
+const explosives = [
+  { name: "C4", damage: 550, craftCost: "Взрывчатка x20, Техническая деталь x2" },
+  { name: "Ракета", damage: 350, craftCost: "Взрывчатка x10, Техническая деталь x1" },
+  { name: "Самодельная взрывчатка", damage: 250, craftCost: "Порох x10, Металл x10" },
+  { name: "Граната", damage: 150, craftCost: "Порох x5, Металл x5" }
+];
+
+const walls = [
+  { name: "Деревянная стена", hp: 250 },
+  { name: "Каменная стена", hp: 500 },
+  { name: "Металлическая стена", hp: 1000 },
+  { name: "Армированная стена", hp: 2000 }
+];
+---
+
+<div class="bg-rust-dark/50 rounded-lg p-6">
+  <h3 class="text-xl font-semibold mb-4">Калькулятор рейда</h3>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block text-sm font-medium text-gray-400 mb-2">
+        Тип стены
+      </label>
+      <select id="wallType" class="w-full bg-rust-dark border border-rust-gray rounded p-2">
+        {walls.map(wall => (
+          <option value={wall.hp}>{wall.name} ({wall.hp} HP)</option>
+        ))}
+      </select>
+    </div>
+    
+    <div>
+      <label class="block text-sm font-medium text-gray-400 mb-2">
+        Тип взрывчатки
+      </label>
+      <select id="explosiveType" class="w-full bg-rust-dark border border-rust-gray rounded p-2">
+        {explosives.map(exp => (
+          <option value={exp.damage}>{exp.name} ({exp.damage} урона)</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <button id="calculate" class="w-full bg-rust-pink/20 hover:bg-rust-pink/30 transition-colors rounded p-2">
+      Рассчитать
+    </button>
+  </div>
+
+  <div id="result" class="mt-4 p-4 bg-rust-dark/30 rounded hidden">
+    <p class="text-center text-lg">Необходимо: <span id="amount" class="font-bold text-rust-pink">0</span> шт.</p>
+    <p class="text-center text-sm text-gray-400 mt-2">Крафт: <span id="craftCost"></span></p>
+  </div>
+</div>
+
+<script>
+  function calculateRaid() {
+    const wallSelect = document.getElementById('wallType') as HTMLSelectElement;
+    const explosiveSelect = document.getElementById('explosiveType') as HTMLSelectElement;
+    const result = document.getElementById('result');
+    const amountSpan = document.getElementById('amount');
+    const craftCostSpan = document.getElementById('craftCost');
+
+    const wallHp = parseInt(wallSelect.value);
+    const explosiveDamage = parseInt(explosiveSelect.value);
+    const explosiveIndex = explosiveSelect.selectedIndex;
+
+    const amount = Math.ceil(wallHp / explosiveDamage);
+    const craftCost = explosives[explosiveIndex].craftCost;
+
+    result.classList.remove('hidden');
+    amountSpan.textContent = amount.toString();
+    craftCostSpan.textContent = craftCost;
+  }
+
+  document.getElementById('calculate').addEventListener('click', calculateRaid);
+</script>

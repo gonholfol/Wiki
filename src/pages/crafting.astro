@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import WorkbenchSelector from '../components/WorkbenchSelector.astro';
+import CraftingItem from '../components/CraftingItem.astro';
+
+const workbenches = [
+  {
+    id: "basic",
+    name: "Базовый крафт",
+    icon: "🔨",
+    level: 0,
+    description: "Предметы, доступные без верстака"
+  },
+  {
+    id: "wb1",
+    name: "Верстак 1 уровня",
+    icon: "⚒️",
+    level: 1,
+    description: "Базовое оружие и инструменты"
+  },
+  {
+    id: "wb2",
+    name: "Верстак 2 уровня",
+    icon: "🛠️",
+    level: 2,
+    description: "Продвинутое оружие и снаряжение"
+  },
+  {
+    id: "wb3",
+    name: "Верстак 3 уровня",
+    icon: "⚔️",
+    level: 3,
+    description: "Элитное оружие и снаряжение"
+  }
+];
+
+const craftingItems = {
+  basic: [
+    {
+      name: "Деревянная дверь",
+      icon: "🚪",
+      materials: [
+        { name: "Дерево", amount: 300 }
+      ],
+      craftTime: "10 сек",
+      category: "Строительство"
+    },
+    {
+      name: "Топор",
+      icon: "🪓",
+      materials: [
+        { name: "Дерево", amount: 200 },
+        { name: "Камень", amount: 100 }
+      ],
+      craftTime: "15 сек",
+      category: "Инструменты"
+    }
+  ],
+  wb1: [
+    {
+      name: "Металлическая дверь",
+      icon: "🚪",
+      materials: [
+        { name: "Металл", amount: 200 },
+        { name: "Шестерни", amount: 2 }
+      ],
+      craftTime: "30 сек",
+      category: "Строительство"
+    },
+    {
+      name: "Револьвер",
+      icon: "🔫",
+      materials: [
+        { name: "Металл", amount: 125 },
+        { name: "Пружины", amount: 1 }
+      ],
+      craftTime: "60 сек",
+      category: "Оружие"
+    }
+  ],
+  wb2: [
+    {
+      name: "Полуавтоматическая винтовка",
+      icon: "🎯",
+      materials: [
+        { name: "Металл", amount: 450 },
+        { name: "Пружины", amount: 3 },
+        { name: "Шестерни", amount: 2 }
+      ],
+      craftTime: "120 сек",
+      category: "Оружие"
+    },
+    {
+      name: "Металлическая броня",
+      icon: "🛡️",
+      materials: [
+        { name: "Металл", amount: 300 },
+        { name: "Веревка", amount: 2 }
+      ],
+      craftTime: "90 сек",
+      category: "Броня"
+    }
+  ],
+  wb3: [
+    {
+      name: "AK-47",
+      icon: "🔫",
+      materials: [
+        { name: "Металл", amount: 550 },
+        { name: "Пружины", amount: 4 },
+        { name: "Шестерни", amount: 3 }
+      ],
+      craftTime: "180 сек",
+      category: "Оружие"
+    },
+    {
+      name: "Ракетница",
+      icon: "🚀",
+      materials: [
+        { name: "Металл", amount: 500 },
+        { name: "Трубы", amount: 3 },
+        { name: "Технические детали", amount: 2 }
+      ],
+      craftTime: "180 сек",
+      category: "Оружие"
+    }
+  ]
+};
+---
+
+<Layout title="Крафт - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <PageHeader 
+        title="Система крафта" 
+        subtitle="Все рецепты и верстаки" 
+      />
+      
+      <Section title="Выберите верстак">
+        <WorkbenchSelector workbenches={workbenches} />
+      </Section>
+
+      {workbenches.map(bench => (
+        <div id={bench.id} class="crafting-section hidden">
+          <Section title={bench.name}>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {craftingItems[bench.id].map(item => (
+                <CraftingItem {...item} />
+              ))}
+            </div>
+          </Section>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<script>
+  function showWorkbench(id: string) {
+    document.querySelectorAll('.crafting-section').forEach(section => {
+      section.classList.add('hidden');
+    });
+    document.getElementById(id)?.classList.remove('hidden');
+  }
+
+  // Show first workbench by default
+  showWorkbench('basic');
+
+  // Add click handlers to workbench buttons
+  document.querySelectorAll('[data-workbench]').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const workbenchId = target.dataset.workbench;
+      if (workbenchId) {
+        showWorkbench(workbenchId);
+      }
+    });
+  });
+</script>

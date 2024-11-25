@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import ExplosiveCalculator from '../components/ExplosiveCalculator.astro';
+
+const raidTools = [
+  {
+    name: "C4",
+    damage: 550,
+    craftTime: "30 сек",
+    radius: "3м",
+    type: "Взрывчатка"
+  },
+  {
+    name: "Ракета",
+    damage: 350,
+    craftTime: "20 сек",
+    radius: "2.5м",
+    type: "Взрывчатка"
+  },
+  {
+    name: "Граната",
+    damage: 150,
+    craftTime: "15 сек",
+    radius: "2м",
+    type: "Взрывчатка"
+  }
+];
+
+const raidTactics = [
+  {
+    title: "Онлайн рейд",
+    pros: ["Больше добычи", "Меньше укреплений"],
+    cons: ["Активное сопротивление", "Требует больше людей"]
+  },
+  {
+    title: "Оффлайн рейд",
+    pros: ["Нет сопротивления", "Можно планировать"],
+    cons: ["Меньше добычи", "Больше укреплений"]
+  }
+];
+---
+
+<Layout title="Рейды - Ultimate Rust Wiki">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-rust-gray rounded-lg p-8">
+      <PageHeader 
+        title="Рейды" 
+        subtitle="Гайд по рейдам и расчет необходимой взрывчатки" 
+      />
+      
+      <Section title="Калькулятор рейда">
+        <ExplosiveCalculator />
+      </Section>
+
+      <Section title="Инструменты для рейда">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {raidTools.map(tool => (
+            <div class="bg-rust-dark/50 rounded-lg p-6">
+              <h3 class="text-xl font-semibold mb-3">{tool.name}</h3>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Урон:</span>
+                  <span>{tool.damage}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Время крафта:</span>
+                  <span>{tool.craftTime}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Радиус:</span>
+                  <span>{tool.radius}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-400">Тип:</span>
+                  <span>{tool.type}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Тактики рейда">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {raidTactics.map(tactic => (
+            <div class="bg-rust-dark/50 rounded-lg p-6">
+              <h3 class="text-xl font-semibold mb-4">{tactic.title}</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="text-rust-pink mb-2">Преимущества:</h4>
+                  <ul class="list-disc list-inside space-y-1 text-gray-300">
+                    {tactic.pros.map(pro => (
+                      <li>{pro}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-rust-pink mb-2">Недостатки:</h4>
+                  <ul class="list-disc list-inside space-y-1 text-gray-300">
+                    {tactic.cons.map(con => (
+                      <li>{con}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Советы по рейдам">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-rust-dark/50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Подготовка к рейду</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Изучите базу цели заранее</li>
+              <li>Подготовьте достаточно взрывчатки</li>
+              <li>Возьмите инструменты для строительства</li>
+              <li>Координируйте действия команды</li>
+              <li>Имейте план отступления</li>
+            </ul>
+          </div>
+          <div class="bg-rust-dark/50 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Во время рейда</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+              <li>Держите периметр под контролем</li>
+              <li>Используйте взрывчатку эффективно</li>
+              <li>Следите за контр-рейдерами</li>
+              <li>Быстро перемещайте лут</li>
+              <li>Будьте готовы к обороне</li>
+            </ul>
+          </div>
+        </div>
+      </Section>
+    </div>
+  </main>
+</Layout>

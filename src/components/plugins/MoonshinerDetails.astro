@@ -1,0 +1,113 @@
+---
+interface Props {
+  plugin: {
+    details: {
+      types: Array<{
+        name: string;
+        ingredients: string;
+        effects: string;
+      }>;
+      components: string[];
+    };
+  };
+}
+
+const { plugin } = Astro.props;
+---
+
+<div class="mt-6 space-y-6">
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Введение</h4>
+    <p class="text-gray-300 mb-4">
+      Добро пожаловать в мир самогоноварения! Мы представляем глобальное обновление механики производства самогона на наших серверах. Теперь вам доступно 6 уникальных видов самогона, каждый со своими особенностями и эффектами.
+    </p>
+    <p class="text-gray-300">
+      Производите и продавайте самогон торговцу Marvin «Popcorn», получайте бонусы к здоровью, добыче ресурсов и защите от радиации. Мы создали эту систему для улучшения интереса к фермерству, совместив различные механики игры.
+    </p>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Компоненты для крафта</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {plugin.details.components.map(component => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <h5 class="font-medium mb-2">{component.split('-')[0]}</h5>
+          <p class="text-sm text-gray-400">Где найти:</p>
+          <ul class="list-disc list-inside text-sm text-gray-300 mt-1">
+            {component.includes('Стол') && (
+              <li>В ящиках или крафт через стандартные механики</li>
+            )}
+            {component.includes('Колбы') && (
+              <li>Элитные ящики, военные ящики, подводная лаборатория</li>
+            )}
+            {component.includes('Бочка') && (
+              <li>Элитные ящики, военные ящики, подводная лаборатория</li>
+            )}
+            {component.includes('Полки') && (
+              <li>Чинук на нефтяной вышке, Карго, аирдропы</li>
+            )}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Виды самогона и эффекты</h4>
+    <div class="grid gap-4">
+      {plugin.details.types.map(type => (
+        <div class="bg-rust-dark/20 p-4 rounded-lg">
+          <h5 class="font-medium mb-2">{type.name}</h5>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-400">Ингредиенты:</p>
+              <p class="text-sm text-gray-300">{type.ingredients}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-400">Эффекты:</p>
+              <p class="text-sm text-gray-300">{type.effects}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Торговля и цены</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-medium mb-2">Где найти торговца?</h5>
+        <p class="text-gray-300">Marvin «Popcorn» находится в:</p>
+        <ul class="list-disc list-inside text-gray-300 mt-1">
+          <li>Городе ученых (возле сцены)</li>
+          <li>Главном здании в городе бандитов</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-medium mb-2">Система цен</h5>
+        <ul class="list-disc list-inside text-gray-300">
+          <li>Цены зависят от спроса игроков</li>
+          <li>Максимальная наценка: +200%</li>
+          <li>Максимальная скидка: -50%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-rust-dark/30 rounded-lg p-6">
+    <h4 class="text-lg font-semibold text-rust-pink mb-4">Система розыска</h4>
+    <p class="text-gray-300">
+      При установке самогонного аппарата ему присваивается владелец. Чем больше ваша ферма производит самогона, тем выше шанс появления вашего имени на доске розыска возле продавца. Станьте самым известным самогонщиком сервера!
+    </p>
+    <div class="mt-4">
+      <h5 class="font-medium mb-2">⚠️ Важно знать</h5>
+      <ul class="list-disc list-inside text-gray-300">
+        <li>Чрезмерное употребление вызывает эффект размытого экрана</li>
+        <li>Эффект усиливается с каждым глотком</li>
+        <li>Время производства различается для каждого вида самогона</li>
+        <li>Используйте команду /craft для доступа к крафту самогонного аппарата</li>
+      </ul>
+    </div>
+  </div>
+</div>

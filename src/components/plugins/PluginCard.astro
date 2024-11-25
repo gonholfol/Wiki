@@ -1,0 +1,27 @@
+---
+interface Props {
+  plugin: {
+    id: string;
+    name: string;
+    icon: string;
+    description: string;
+  };
+}
+
+const { plugin } = Astro.props;
+---
+
+<div 
+  class="bg-rust-dark/50 rounded-lg p-6 hover:bg-rust-dark/70 transition-all duration-300 cursor-pointer transform hover:scale-[1.02] group"
+  data-plugin-id={plugin.id}
+>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <span class="text-3xl bg-rust-pink/10 w-12 h-12 flex items-center justify-center rounded-lg group-hover:animate-bounce">{plugin.icon}</span>
+      <h3 class="text-xl font-semibold group-hover:text-rust-pink transition-colors">{plugin.name}</h3>
+    </div>
+    <span class="text-rust-pink transform transition-transform duration-300 group-hover:translate-x-2">→</span>
+  </div>
+  
+  <p class="text-gray-300 mt-4">{plugin.description}</p>
+</div>
